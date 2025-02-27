@@ -5,19 +5,54 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public NavMeshAgent agent;
-    public Transform target; // Target tujuan (misalnya pemain)
+    private NavMeshAgent agent;
+    [SerializeField] private float turnSpeed = 10f;
+    [SerializeField] private Transform[] waypoints; 
+    private int wayPointIndex;
 
-    void Start()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.avoidancePriority = Mathf.RoundToInt(agent.speed * 10);
     }
 
-    void Update()
+    private void Start()
     {
-        if (target != null)
+        //Mencari objek pertamaa dengan script waypoint manager
+        waypoints = FindFirstObjectByType<WayPointManager>().GetWayPoints();
+    }
+
+    private void Update()
+    {
+        FaceTarget(agent.steeringTarget);
+        if(agent.remainingDistance < .5f)
         {
-            agent.SetDestination(target.position); // Mengatur tujuan agent ke posisi target
+            agent.SetDestination(GetNextWaypoint());
         }
     }
+
+    private void FaceTarget(Vector3 newTarget)
+    {
+        Vector3 directionTarget = newTarget - transform.position;
+        directionTarget.y = 0;
+
+        Quaternion newRotation = Quaternion.LookRotation(directionTarget);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, turnSpeed * Time.deltaTime);
+    }
+
+    private Vector3 GetNextWaypoint()
+    {
+        if(wayPointIndex >= waypoints.Length)
+        {
+            // wayPointIndex = 0;
+            return transform.position;
+        }
+        Vector3 targetPoint = waypoints[wayPointIndex].position;
+        wayPointIndex++;
+        return targetPoint;
+    }
+
+
 }
