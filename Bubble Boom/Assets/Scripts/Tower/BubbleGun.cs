@@ -1,18 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class BubbleGun : MonoBehaviour
+public class BubbleGun : Tower
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int damage;
+    [SerializeField] private Transform gunPoint;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Attack()
     {
-        
+        Vector3 directionEnemy = DirectionToEnemy(gunPoint);
+
+        if(Physics.Raycast(gunPoint.position, directionEnemy, out RaycastHit hitInfo, Mathf.Infinity))
+        {
+            towerHead.forward = directionEnemy;
+
+            // IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
+
+            // if(damagable != null)
+            //     damagable.TakeDamage(damage);
+        }
     }
 }
