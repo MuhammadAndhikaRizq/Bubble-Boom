@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34068dd5324ce904fb72ec88f6abf1ff, type: 3}
+  m_Name: AudioData
+  m_EditorClassIdentifier: 
+  BgmList:
+  - BgmName: Main
+    Clip: {fileID: 8300000, guid: 760ce6f1d95384e4fb01dfbc68e05213, type: 3}
+  - BgmName: Second
+    Clip: {fileID: 8300000, guid: abcdf2d10e7baf6418a61d49bbb00e80, type: 3}
+  - BgmName: Third
+    Clip: {fileID: 8300000, guid: b8891310f83056c4b941cdeb51d9bd75, type: 3}
+  SoundList:
+  - SoundName: button
+    Clip: {fileID: 8300000, guid: bf8621b3bf1731944a5c171ce84846ce, type: 3}
+    Volume: 1
+    isLoop: 0
