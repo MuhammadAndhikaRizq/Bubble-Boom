@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BubbleGun : Tower
 {
+    private VisualBullet visual;
     [SerializeField] private int damage;
     [SerializeField] private Transform gunPoint;
 
@@ -21,6 +22,8 @@ public class BubbleGun : Tower
         if(Physics.Raycast(gunPoint.position, directionEnemy, out RaycastHit hitInfo, Mathf.Infinity))
         {
             towerHead.forward = directionEnemy;
+
+            visual.PlayAttack(gunPoint.position, hitInfo.point);
 
             // IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
 
