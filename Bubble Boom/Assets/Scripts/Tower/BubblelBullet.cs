@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BubbleBullet : MonoBehaviour
@@ -28,11 +27,18 @@ public class BubbleBullet : MonoBehaviour
         
         // Atur rotasi bullet agar mengarah ke target
         bullet.transform.LookAt(endPoin);
-        bullet.transform.position = Vector3.Lerp(startPoin, endPoin, attackDuration * Time.deltaTime);
-            yield return new WaitForSeconds(attackDuration);
+
+        float elapsedTime = 0f;
+        while (elapsedTime < bulletDuration)
+        {
+            // Gerakkan bullet dari startPoin ke endPoin secara bertahap
+            bullet.transform.position = Vector3.Lerp(startPoin, endPoin, elapsedTime / bulletDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
 
         bullet.transform.position = endPoin; // Pastikan peluru mencapai tujuan
-        Destroy(bullet, 0.1f);
+        Destroy(bullet, 0.1f); // Hancurkan bullet setelah sedikit waktu
 
         myTower.EnableRotation(true); // Aktifkan kembali rotasi tower
     }
