@@ -25,10 +25,10 @@ public class BubbleGun : Tower
 
             bullet.PlayAttack(gunPoint.position, hitInfo.point);
 
-            // IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
+            IDamageAble damagable = hitInfo.transform.GetComponent<IDamageAble>();
 
-            // if(damagable != null)
-            //     damagable.TakeDamage(damage);
+            if(damagable != null)
+                damagable.TakeDamage(damage);
         }
     }
 }

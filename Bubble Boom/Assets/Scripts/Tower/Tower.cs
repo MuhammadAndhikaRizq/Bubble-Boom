@@ -30,7 +30,7 @@ public class Tower : MonoBehaviour
             return;
         }
 
-        if(Vector3.Distance(currentEnemy.position, transform.position) < attackRange)
+        if(Vector3.Distance(currentEnemy.position, transform.position) > attackRange)
             currentEnemy = null;
 
         if(CanAttack())

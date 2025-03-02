@@ -2451,7 +2451,7 @@ MonoBehaviour:
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 64
-  damage: 0
+  damage: 3
   gunPoint: {fileID: 2030996010}
 --- !u!114 &808505089
 MonoBehaviour:
