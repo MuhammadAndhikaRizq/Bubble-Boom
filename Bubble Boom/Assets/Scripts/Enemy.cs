@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private NavMeshAgent agent;
+    public int healthPoints = 5;
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private Transform[] waypoints; 
     private int wayPointIndex;
@@ -52,6 +53,17 @@ public class Enemy : MonoBehaviour
         Vector3 targetPoint = waypoints[wayPointIndex].position;
         wayPointIndex++;
         return targetPoint;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        healthPoints = healthPoints - damage;
+
+        if(healthPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
 

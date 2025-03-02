@@ -1,10 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class VisualBullet : MonoBehaviour
+public class BubbleBullet : MonoBehaviour
 {
     private BubbleGun myTower;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float attackDuration = .1f;
     [SerializeField] private float bulletDuration = 0.5f;
 
     private void Awake()
@@ -19,33 +20,26 @@ public class VisualBullet : MonoBehaviour
 
     private IEnumerator BulletCoroutine(Vector3 startPoin, Vector3 endPoin)
     {
-        myTower.EnableRotation(false);
+        myTower.EnableRotation(false); // Nonaktifkan rotasi tower saat menembak
 
         // Instantiate bullet effect
         GameObject bullet = Instantiate(bulletPrefab, startPoin, Quaternion.identity);
-        ParticleSystem bulletParticle = bullet.GetComponent<ParticleSystem>();
+        
+        // Atur rotasi bullet agar mengarah ke target
+        bullet.transform.LookAt(endPoin);
 
-        if (bulletParticle != null)
-        {
-            bulletParticle.Play();
-        }
-
-        // Move bullet from startPoin to endPoin
-        float elapsedTime = 0;
+        float elapsedTime = 0f;
         while (elapsedTime < bulletDuration)
         {
+            // Gerakkan bullet dari startPoin ke endPoin secara bertahap
             bullet.transform.position = Vector3.Lerp(startPoin, endPoin, elapsedTime / bulletDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Stop particle and destroy bullet
-        if (bulletParticle != null)
-        {
-            bulletParticle.Stop();
-        }
-        Destroy(bullet, 0.5f); // Delay sedikit sebelum dihancurkan
+        bullet.transform.position = endPoin; // Pastikan peluru mencapai tujuan
+        Destroy(bullet, 0.1f); // Hancurkan bullet setelah sedikit waktu
 
-        myTower.EnableRotation(true);
+        myTower.EnableRotation(true); // Aktifkan kembali rotasi tower
     }
 }

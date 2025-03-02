@@ -2429,7 +2429,6 @@ Transform:
   m_Children:
   - {fileID: 7556740231735519289}
   - {fileID: 1069904164}
-  - {fileID: 2030996010}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &808505088
@@ -2466,8 +2465,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcb6c5d0dee18546ad6c152114e3c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 2490487143330366171, guid: 868a9f3fe730c8b459bf7f6088b692d3,
+  bulletPrefab: {fileID: 1766820213385893715, guid: 4c66cfbe09ecbaa42a64a3f9dfae07bb,
     type: 3}
+  attackDuration: 0.1
   bulletDuration: 0.5
 --- !u!1 &832575517
 GameObject:
@@ -6418,12 +6418,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030996009}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.306, y: 0.885, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.0008285717, y: -0.0008714268, z: 0.0019428572}
+  m_LocalScale: {x: 0.014285715, y: 0.014285715, z: 0.014285715}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 808505087}
+  m_Father: {fileID: 7556740231735519289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2039819687
 GameObject:
@@ -7202,7 +7202,8 @@ Transform:
   m_LocalPosition: {x: 0.17, y: 0.946, z: 0.058}
   m_LocalScale: {x: 70, y: 70, z: 70}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2030996010}
   m_Father: {fileID: 808505087}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &8689066460374389590

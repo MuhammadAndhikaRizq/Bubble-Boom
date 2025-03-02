@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class BubbleGun : Tower
 {
-    private VisualBullet visual;
+    private BubbleBullet bullet;
     [SerializeField] private int damage;
     [SerializeField] private Transform gunPoint;
 
     protected override void Awake()
     {
-        base.Awake();
+        bullet = GetComponent<BubbleBullet>();
     }
 
     protected override void Attack()
@@ -23,7 +23,7 @@ public class BubbleGun : Tower
         {
             towerHead.forward = directionEnemy;
 
-            visual.PlayAttack(gunPoint.position, hitInfo.point);
+            bullet.PlayAttack(gunPoint.position, hitInfo.point);
 
             // IDamagable damagable = hitInfo.transform.GetComponent<IDamagable>();
 
