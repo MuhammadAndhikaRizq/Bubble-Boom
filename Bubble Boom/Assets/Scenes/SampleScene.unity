@@ -2445,14 +2445,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentEnemy: {fileID: 0}
   attackCooldown: 1
+  enemyPriority: 0
   towerHead: {fileID: 7556740231735519289}
   lookSpeed: 10
   attackRange: 2.5
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 64
+  dynamicTargetChange: 1
+  projectilePrefab: {fileID: 1766820213385893715, guid: 4c66cfbe09ecbaa42a64a3f9dfae07bb,
+    type: 3}
   damage: 3
   gunPoint: {fileID: 2030996010}
+  projectileSpeed: 10
 --- !u!114 &808505089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2465,10 +2470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcb6c5d0dee18546ad6c152114e3c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1766820213385893715, guid: 4c66cfbe09ecbaa42a64a3f9dfae07bb,
-    type: 3}
-  attackDuration: 0.1
-  bulletDuration: 0.5
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
