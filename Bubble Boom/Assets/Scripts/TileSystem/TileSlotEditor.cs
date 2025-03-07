@@ -85,5 +85,41 @@ public class TileSlotEditor : Editor
         }
 
         GUILayout.EndHorizontal();
+
+        GUILayout.Label("Hiils & Bridge Option", centeredStyle);
+
+        GUILayout.BeginHorizontal();
+
+        if(GUILayout.Button("Hills 1", GUILayout.Width(threeButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileHill_1;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        if(GUILayout.Button("Hill 2", GUILayout.Width(threeButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileHill_2;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        if(GUILayout.Button("Hill 3", GUILayout.Width(threeButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileHill_3;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        GUILayout.EndHorizontal();
     }    
 }
