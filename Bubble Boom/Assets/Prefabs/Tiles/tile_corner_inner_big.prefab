@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1497997765123973442}
   - component: {fileID: 6549432342350839587}
   - component: {fileID: 1007690456328091885}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tile_corner_inner_road
   m_TagString: Untagged
   m_Icon: {fileID: 0}

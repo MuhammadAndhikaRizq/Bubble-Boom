@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 2319996482774786349}
   - component: {fileID: 7327531382443056451}
   - component: {fileID: 1859906348770940901}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tile_corner_outer_road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
