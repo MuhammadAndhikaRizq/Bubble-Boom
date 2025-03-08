@@ -23,6 +23,47 @@ public class TileSlotEditor : Editor
         float twoButtonWidth = (EditorGUIUtility.currentViewWidth - 25) / 2;
         float threeButtonWidth = (EditorGUIUtility.currentViewWidth - 25) / 3;
 
+        GUILayout.Label("Rotate & Position", centeredStyle);
+
+        GUILayout.BeginHorizontal();
+
+        if(GUILayout.Button("Rotate Left", GUILayout.Width(twoButtonWidth)))
+        {
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).RotateTile(-1);
+            }
+        }
+
+        if(GUILayout.Button("Rotate Right", GUILayout.Width(twoButtonWidth)))
+        {
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).RotateTile(1);
+            }
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+
+        if(GUILayout.Button("- .1f on the Y", GUILayout.Width(twoButtonWidth)))
+        {
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).AdjustY(-1);
+            }
+        }
+
+        if(GUILayout.Button("+ .1f on the Y", GUILayout.Width(twoButtonWidth)))
+        {
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).AdjustY(1);
+            }
+        }
+
+        GUILayout.EndHorizontal();
+
         GUILayout.Label("Tile Option", centeredStyle);
         GUILayout.BeginHorizontal();
 
