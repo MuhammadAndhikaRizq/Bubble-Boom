@@ -185,5 +185,37 @@ public class TileSlotEditor : Editor
         }
 
         GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        if(GUILayout.Button("Bridge Road", GUILayout.Width(threeButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileBridgeRoad;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        if(GUILayout.Button("Bridge Field", GUILayout.Width(threeButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileBridgeField;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        if(GUILayout.Button("Bridge Sideway", GUILayout.Width(threeButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileBridgeSideway;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        GUILayout.EndHorizontal();
     }    
 }
