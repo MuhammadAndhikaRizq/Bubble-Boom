@@ -11,7 +11,9 @@ public class TileSlotHolder : MonoBehaviour
 
     [Header("Corner Tiles")]
     public GameObject tileInnerCorner;
+    public GameObject tileInnerCornerBig;
     public GameObject tileOuterCorner;
+    public GameObject tileOuterCornerBig;
 
     [Header("Hill Tiles")]
     public GameObject tileHill_1;

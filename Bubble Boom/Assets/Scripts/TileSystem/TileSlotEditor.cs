@@ -126,6 +126,29 @@ public class TileSlotEditor : Editor
         }
 
         GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+
+        if(GUILayout.Button("Inner Corner Big", GUILayout.Width(twoButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileInnerCornerBig;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        if(GUILayout.Button("Outer Corner Big", GUILayout.Width(twoButtonWidth)))
+        {
+            GameObject newTile = FindFirstObjectByType<TileSlotHolder>().tileOuterCornerBig;
+
+            foreach(var targetTile in targets)
+            {
+                ((TileSlot)targetTile).SwitchTile(newTile);
+            }
+        }
+
+        GUILayout.EndHorizontal();
 
         GUILayout.Label("Hiils & Bridge Option", centeredStyle);
 
