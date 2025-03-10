@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 583090707547868887}
-  - component: {fileID: 2054008925017770510}
   - component: {fileID: 2406678732452462851}
+  - component: {fileID: 2054008925017770510}
   - component: {fileID: 4609425470147923562}
   m_Layer: 0
   m_Name: TileReferences
@@ -34,6 +34,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2406678732452462851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672671102512160199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e420469587c8c948ad87b2559ee5d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPrefab: {fileID: 4643844913227191206, guid: 5e3b399f30192de42ad5df1cd2b4aa29,
+    type: 3}
+  gridLength: 10
+  gridWidth: 10
+  createdList: []
 --- !u!114 &2054008925017770510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,23 +89,6 @@ MonoBehaviour:
     type: 3}
   tileBridgeSideway: {fileID: 483451837440093752, guid: fd4727b709efc614a90cec879a9816d1,
     type: 3}
---- !u!114 &2406678732452462851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1672671102512160199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e420469587c8c948ad87b2559ee5d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainPrefab: {fileID: 4643844913227191206, guid: 5e3b399f30192de42ad5df1cd2b4aa29,
-    type: 3}
-  gridLength: 10
-  gridWidth: 10
-  createdList: []
 --- !u!114 &4609425470147923562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 8
-  m_UseGeometry: 0
+    m_Bits: 64
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
