@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2009002614511770753}
   - component: {fileID: -8871170977778498638}
+  - component: {fileID: 7712966267588332563}
   - component: {fileID: 318900704905191880}
   - component: {fileID: 8234537306787861712}
   - component: {fileID: 3995238500555564984}
@@ -47,6 +48,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61cbb0701b548240896e84864bb27b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7712966267588332563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4643844913227191206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dde523f2c362864db08e18048650d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 6708151898500363699, guid: 4b347194c08435e44b65a30c01c63fcb,
+    type: 3}
+  isPlaceable: 0
 --- !u!33 &318900704905191880
 MeshFilter:
   m_ObjectHideFlags: 0
