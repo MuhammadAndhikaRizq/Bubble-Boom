@@ -10,48 +10,37 @@ public class WaveDetails
 }
 public class EnemyManager : MonoBehaviour
 {
+    public List<EnemyPortal> enemyPortals;
     [SerializeField] private WaveDetails currentWave;
-    [Space]
-    [SerializeField] private Transform respawn;
-    [SerializeField] private float spawnCooldown;
-    private float spawnTimer;
-    
-    private List<GameObject> enemiesToCreate;
 
     [Header ("Enemy Prefab")]
     [SerializeField] private GameObject basicEnemy;
     [SerializeField] private GameObject fastEnemy;
-
-    private void Start()
-    {
-        enemiesToCreate = NewEnemyWave();
-    }
     
-    private void Update()
+    private void Awake()
     {
-        spawnTimer -= Time.deltaTime;
-        if(spawnTimer <= 0 && enemiesToCreate.Count > 0)
+        enemyPortals = new List<EnemyPortal>( FindObjectsOfType<EnemyPortal>() );
+    }
+
+    [ContextMenu("Setup Up Next Wave")]
+    private void SetUpNextWave()
+    {
+        List<GameObject> newEnemyList = NewEnemyWave();
+        int portalIndex = 0;
+
+        for(int i = 0; i < newEnemyList.Count; i++)
         {
-            CreateEnemy();
-            spawnTimer = spawnCooldown;
+            GameObject enemyToAdd = newEnemyList[i];
+            EnemyPortal portalToReceiveEnemy = enemyPortals[portalIndex];
+
+            portalToReceiveEnemy.GetEnemyList().Add(enemyToAdd);
+
+            portalIndex++;
+
+            if(portalIndex >= enemyPortals.Count)
+                portalIndex = 0;
         }
     }
-
-    private void CreateEnemy()
-    {
-        GameObject randomEnemy = GetRandomEnemy();
-        GameObject newEnemy = Instantiate (randomEnemy, respawn.position, Quaternion.identity);
-    }
-
-    private GameObject GetRandomEnemy()
-    {
-        int randomIndex = Random.Range(0, enemiesToCreate.Count);
-        GameObject chooseEnemy = enemiesToCreate[randomIndex];
-        enemiesToCreate.Remove(chooseEnemy);
-
-        return chooseEnemy;
-    }
-
     private List<GameObject> NewEnemyWave()
     {
         List<GameObject> newEnemyList = new List<GameObject>();

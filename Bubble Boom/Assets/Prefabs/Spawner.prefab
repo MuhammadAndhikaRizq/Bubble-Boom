@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5786418435715707843}
   - component: {fileID: 5394157934515170308}
   - component: {fileID: 7479556582798293191}
+  - component: {fileID: 6090322149347012724}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.095, y: 0.095, z: 0.095}
+  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -130,3 +131,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 28.110575, y: 9.644015, z: 21.26434}
   m_Center: {x: 0.032527927, y: -0.44366905, z: -1.3184329}
+--- !u!114 &6090322149347012724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413954700252921255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4d4c914493692409d343b731392474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
