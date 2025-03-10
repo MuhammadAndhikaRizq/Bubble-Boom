@@ -12,7 +12,8 @@ public class Enemy : MonoBehaviour, IDamageAble
     [SerializeField] private Transform centerPoint;
     [SerializeField] private float turnSpeed = 10f;
     [SerializeField] private List<Transform> myWaypoints; 
-    private int wayPointIndex;
+    private int nextWayPointIndex;
+    private int currentWayPointIndex;   
 
     [Space]
     private float totalDistance;
@@ -39,10 +40,29 @@ public class Enemy : MonoBehaviour, IDamageAble
     private void Update()
     {
         FaceTarget(agent.steeringTarget);
-        if(agent.remainingDistance < .5f)
+        if(ShouldChangeWaypoint())
         {
             agent.SetDestination(GetNextWaypoint());
         }
+    }
+
+    private bool ShouldChangeWaypoint()
+    {
+        if(nextWayPointIndex >= myWaypoints.Count)
+            return false;
+        
+        if(agent.remainingDistance < .5f)
+            return true;
+
+        Vector3 currentWaypoint = myWaypoints[currentWayPointIndex].position;
+        Vector3 nexWaypoint = myWaypoints[nextWayPointIndex].position;
+
+        float distanceToNextWaypoint = Vector3.Distance(transform.position, nexWaypoint);
+        float ditanceBeetwenWaypoint = Vector3.Distance(currentWaypoint, nexWaypoint);
+
+        
+        return ditanceBeetwenWaypoint > distanceToNextWaypoint;
+        
     }
     
     public float DistanceToTarget() => totalDistance + agent.remainingDistance;
@@ -66,20 +86,21 @@ public class Enemy : MonoBehaviour, IDamageAble
 
     private Vector3 GetNextWaypoint()
     {
-        if(wayPointIndex >= myWaypoints.Count)
+        if(nextWayPointIndex >= myWaypoints.Count)
         {
-            // wayPointIndex = 0;
+            // nextWayPointIndex = 0;
             return transform.position;
         }
-        Vector3 targetPoint = myWaypoints[wayPointIndex].position;
+        Vector3 targetPoint = myWaypoints[nextWayPointIndex].position;
 
-        if(wayPointIndex > 0)
+        if(nextWayPointIndex > 0)
         {
-            float distance = Vector3.Distance(myWaypoints[wayPointIndex].position, myWaypoints[wayPointIndex - 1].position);
+            float distance = Vector3.Distance(myWaypoints[nextWayPointIndex].position, myWaypoints[nextWayPointIndex - 1].position);
             totalDistance = totalDistance - distance;
         }
 
-        wayPointIndex = wayPointIndex + 1;
+        nextWayPointIndex = nextWayPointIndex + 1;
+        currentWayPointIndex = nextWayPointIndex - 1;
         return targetPoint;
     }
 
