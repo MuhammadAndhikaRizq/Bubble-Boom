@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 [System.Serializable]
 public class WaveDetails
@@ -12,10 +13,13 @@ public class EnemyManager : MonoBehaviour
 {
     public bool waveCompleted;
 
-    public float timerBeetwenWave = 10;
+    public float timerBeetwenWave = 5;
     public float waveTimer;
     [SerializeField] private WaveDetails[] levelWaves;
     private int waveIndex;
+
+    private float checkInterval = .5f;
+    private float nextCheckTime;
 
     [Header ("Enemy Prefab")]
     [SerializeField] private GameObject basicEnemy;
@@ -35,19 +39,41 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if(waveCompleted == false && AllEnemiesDead())
+        HandleWave();
+        HandleTiming();
+    }
+
+    private void HandleWave()
+    {
+        if(ReadyToCheck() == false)
+            return;
+
+        if (waveCompleted == false && AllEnemiesDead())
         {
             waveCompleted = true;
             waveTimer = timerBeetwenWave;
         }
-        
-        if(waveCompleted)
+    }
+
+    private void HandleTiming()
+    {
+        if (waveCompleted)
         {
             waveTimer -= Time.deltaTime;
 
-            if(waveTimer <= 0)
+            if (waveTimer <= 0)
                 SetUpNextWave();
         }
+    }
+
+    public void ForceNextWave()
+    {
+        if(AllEnemiesDead() == false)
+        {
+            return;
+        }
+
+        SetUpNextWave();
     }
 
     [ContextMenu("Setup Up Next Wave")]
@@ -105,5 +131,16 @@ public class EnemyManager : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    private bool ReadyToCheck()
+    {
+        if(Time.time >= nextCheckTime)
+        {
+            nextCheckTime = Time.time + checkInterval;
+            return true;
+        }
+
+        return false;
     }
 }
