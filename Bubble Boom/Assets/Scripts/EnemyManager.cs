@@ -11,6 +11,9 @@ public class WaveDetails
 public class EnemyManager : MonoBehaviour
 {
     public bool waveCompleted;
+
+    public float timerBeetwenWave = 10;
+    public float waveTimer;
     [SerializeField] private WaveDetails[] levelWaves;
     private int waveIndex;
 
@@ -33,7 +36,18 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         if(waveCompleted == false && AllEnemiesDead())
+        {
             waveCompleted = true;
+            waveTimer = timerBeetwenWave;
+        }
+        
+        if(waveCompleted)
+        {
+            waveTimer -= Time.deltaTime;
+
+            if(waveTimer <= 0)
+                SetUpNextWave();
+        }
     }
 
     [ContextMenu("Setup Up Next Wave")]

@@ -50812,11 +50812,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384772561b84fe94a80a8b5d907ae769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveCompleted: 0
+  timerBeetwenWave: 10
+  waveTimer: 0
   levelWaves:
-  - basicEnemy: 150
-    fastEnemy: 100
-  - basicEnemy: 15
-    fastEnemy: 50
+  - basicEnemy: 0
+    fastEnemy: 2
+  - basicEnemy: 0
+    fastEnemy: 3
   - basicEnemy: 20
     fastEnemy: 60
   basicEnemy: {fileID: 7292920558060323760, guid: 5dfc9ae9f567116418f456b9aa145870,
