@@ -10,6 +10,7 @@ public class WaveDetails
 }
 public class EnemyManager : MonoBehaviour
 {
+    public bool waveCompleted;
     [SerializeField] private WaveDetails[] levelWaves;
     private int waveIndex;
 
@@ -27,6 +28,12 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         SetUpNextWave();
+    }
+
+    private void Update()
+    {
+        if(waveCompleted == false && AllEnemiesDead())
+            waveCompleted = true;
     }
 
     [ContextMenu("Setup Up Next Wave")]
@@ -50,6 +57,8 @@ public class EnemyManager : MonoBehaviour
             if(portalIndex >= enemyPortals.Count)
                 portalIndex = 0;
         }
+
+        waveCompleted = false;
     }
     private List<GameObject> NewEnemyWave()
     {
@@ -72,5 +81,15 @@ public class EnemyManager : MonoBehaviour
         waveIndex++;
 
         return newEnemyList;
+    }
+
+    private bool AllEnemiesDead()
+    {
+        foreach(EnemyPortal portal in enemyPortals)
+        {
+            if(portal.GetActiveEnemies().Count > 0)
+                return false;
+        }
+        return true;
     }
 }

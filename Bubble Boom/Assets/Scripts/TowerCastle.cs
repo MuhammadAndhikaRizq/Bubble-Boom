@@ -9,7 +9,7 @@ public class TowerCastle : MonoBehaviour
    {
         if(other.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+           other.GetComponent<Enemy>().TakeDamage(99999);
         }
    }
 }
