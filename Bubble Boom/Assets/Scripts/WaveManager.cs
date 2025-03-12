@@ -6,11 +6,14 @@ using UnityEngine.XR;
 [System.Serializable]
 public class WaveDetails
 {
+    public GridBuilder nextGrid;
+    public EnemyPortal[] newPortals;
     public int basicEnemy;
     public int fastEnemy;
 }
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] private GridBuilder currentGrid;
     public bool waveCompleted;
 
     public float timerBeetwenWave = 5;
@@ -50,6 +53,8 @@ public class WaveManager : MonoBehaviour
 
         if (waveCompleted == false && AllEnemiesDead())
         {
+            CheckForNewLayout();
+
             waveCompleted = true;
             waveTimer = timerBeetwenWave;
         }
@@ -123,6 +128,33 @@ public class WaveManager : MonoBehaviour
         return newEnemyList;
     }
 
+    private void CheckForNewLayout()
+    {
+        if(waveIndex >= levelWaves.Length)
+            return;
+        
+        WaveDetails nextWave = levelWaves[waveIndex];
+
+        if(nextWave.nextGrid != null)
+        {
+
+        }
+    }
+
+    private void UpdateLevelTiles(GridBuilder nextGrid)
+    {
+        List<GameObject> grid = currentGrid.GetTiles();
+        List<GameObject> newGrid = nextGrid.GetTiles();
+
+        for(int i=0; i < grid.count; i++)
+        {
+            TileSlot currentTile = grid[i].GetComponent<TileSlot>();
+            TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
+
+            bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() || 
+                                    currentTile.GetMaterial() != newTile.GetMaterial();
+        }
+    }
     private bool AllEnemiesDead()
     {
         foreach(EnemyPortal portal in enemyPortals)

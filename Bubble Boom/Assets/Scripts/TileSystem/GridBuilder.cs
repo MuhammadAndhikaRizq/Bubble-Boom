@@ -10,6 +10,7 @@ public class GridBuilder : MonoBehaviour
     [SerializeField] private int gridWidth = 10;
     [SerializeField] private List<GameObject> createdList;
 
+    public List<GameObject> GetTileSetup => createdList;
 
     [ContextMenu("Build grid")]
     private void BuildGrid()
