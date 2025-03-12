@@ -9,7 +9,7 @@ public class WaveDetails
     public int basicEnemy;
     public int fastEnemy;
 }
-public class EnemyManager : MonoBehaviour
+public class WaveManager : MonoBehaviour
 {
     public bool waveCompleted;
 
