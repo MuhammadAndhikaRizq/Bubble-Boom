@@ -137,14 +137,14 @@ public class WaveManager : MonoBehaviour
 
         if(nextWave.nextGrid != null)
         {
-
+            UpdateLevelTiles(nextWave.nextGrid);
         }
     }
 
     private void UpdateLevelTiles(GridBuilder nextGrid)
     {
-        List<GameObject> grid = currentGrid.GetTiles();
-        List<GameObject> newGrid = nextGrid.GetTiles();
+        List<GameObject> grid = currentGrid.GetTilesSetup();
+        List<GameObject> newGrid = nextGrid.GetTilesSetup();
 
         for(int i=0; i < grid.count; i++)
         {
@@ -152,7 +152,17 @@ public class WaveManager : MonoBehaviour
             TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
 
             bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() || 
-                                    currentTile.GetMaterial() != newTile.GetMaterial();
+                                    currentTile.GetMaterial() != newTile.GetMaterial() ||
+                                    currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
+                                    currentTile.tranform.rotation != newTile.transform.rotation;
+
+            if(shouldBeUpdated)
+            {
+                currentTile.gameObject.SetActive(false);
+
+                newTile.gameObject.SetActive(true);
+                newTile.transform.parent = currentGrid.transform;
+            }
         }
     }
     private bool AllEnemiesDead()
