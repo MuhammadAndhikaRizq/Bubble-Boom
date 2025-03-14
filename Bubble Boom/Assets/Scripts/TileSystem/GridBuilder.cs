@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class GridBuilder : MonoBehaviour
 {
+    private NavMeshSurface myNavmesh => GetComponent<NavMeshSurface>();
     [SerializeField] private GameObject mainPrefab;
     [SerializeField] private int gridLength = 10;
     [SerializeField] private int gridWidth = 10;
     [SerializeField] private List<GameObject> createdTiles;
 
     public List<GameObject> GetTileSetup() => createdTiles;
+    public void UpdateNavMesh() => myNavmesh.BuildNavMesh();
 
     [ContextMenu("Build grid")]
     private void BuildGrid()

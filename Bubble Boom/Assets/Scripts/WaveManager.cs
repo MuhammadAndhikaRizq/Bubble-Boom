@@ -138,7 +138,10 @@ public class WaveManager : MonoBehaviour
         if(nextWave.nextGrid != null)
         {
             UpdateLevelTiles(nextWave.nextGrid);
+            EnableNewPortals(nextWave.newPortals);
         }
+
+        currentGrid.UpdateNavMesh();
     }
 
     private void UpdateLevelTiles(GridBuilder nextGrid)
@@ -162,7 +165,19 @@ public class WaveManager : MonoBehaviour
 
                 newTile.gameObject.SetActive(true);
                 newTile.transform.parent = currentGrid.transform;
+
+                grid[i] = newTile.gameObject;
+                Destroy(currentTile.gameObject);
             }
+        }
+    }
+
+    private void EnableNewPortals(EnemyPortal[] newPortals)
+    {
+        foreach(EnemyPortal portal in newPortals)
+        {
+            portal.gameObject.SetActive(true);
+            enemyPortals.Add(portal);
         }
     }
     private bool AllEnemiesDead()
