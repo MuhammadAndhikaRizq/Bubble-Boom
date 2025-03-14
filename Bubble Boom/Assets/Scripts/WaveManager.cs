@@ -143,10 +143,10 @@ public class WaveManager : MonoBehaviour
 
     private void UpdateLevelTiles(GridBuilder nextGrid)
     {
-        List<GameObject> grid = currentGrid.GetTilesSetup();
-        List<GameObject> newGrid = nextGrid.GetTilesSetup();
+        List<GameObject> grid = currentGrid.GetTileSetup();
+        List<GameObject> newGrid = nextGrid.GetTileSetup();
 
-        for(int i=0; i < grid.count; i++)
+        for(int i=0; i < grid.Count; i++)
         {
             TileSlot currentTile = grid[i].GetComponent<TileSlot>();
             TileSlot newTile = newGrid[i].GetComponent<TileSlot>();
@@ -154,7 +154,7 @@ public class WaveManager : MonoBehaviour
             bool shouldBeUpdated = currentTile.GetMesh() != newTile.GetMesh() || 
                                     currentTile.GetMaterial() != newTile.GetMaterial() ||
                                     currentTile.GetAllChildren().Count != newTile.GetAllChildren().Count ||
-                                    currentTile.tranform.rotation != newTile.transform.rotation;
+                                    currentTile.transform.rotation != newTile.transform.rotation;
 
             if(shouldBeUpdated)
             {

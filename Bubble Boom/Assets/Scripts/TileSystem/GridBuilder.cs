@@ -8,15 +8,15 @@ public class GridBuilder : MonoBehaviour
     [SerializeField] private GameObject mainPrefab;
     [SerializeField] private int gridLength = 10;
     [SerializeField] private int gridWidth = 10;
-    [SerializeField] private List<GameObject> createdList;
+    [SerializeField] private List<GameObject> createdTiles;
 
-    public List<GameObject> GetTileSetup => createdList;
+    public List<GameObject> GetTileSetup() => createdTiles;
 
     [ContextMenu("Build grid")]
     private void BuildGrid()
     {
         ClearGrid();
-        createdList = new List<GameObject>();
+        createdTiles = new List<GameObject>();
 
         for(int x = 0; x < gridLength; x++)
         {
@@ -31,12 +31,12 @@ public class GridBuilder : MonoBehaviour
     [ContextMenu("Clear grid")]
     private void ClearGrid()
     {
-        foreach(GameObject tile in createdList)
+        foreach(GameObject tile in createdTiles)
         {
             DestroyImmediate(tile);
         }
 
-        createdList.Clear();
+        createdTiles.Clear();
     }
 
     private void CreateTile(float xPosition, float zPosition)
@@ -44,6 +44,6 @@ public class GridBuilder : MonoBehaviour
         Vector3 newPosition = new Vector3(xPosition, 0, zPosition);
         GameObject newTile = Instantiate(mainPrefab, newPosition, Quaternion.identity, transform);
 
-        createdList.Add(newTile);
+        createdTiles.Add(newTile);
     }
 }
