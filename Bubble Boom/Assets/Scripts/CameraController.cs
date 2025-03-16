@@ -9,6 +9,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float movementSpeed = 120;
     [SerializeField] private float mousMovementSpeed = 5;
 
+    [Header ("Edge Movement Details")]
+    [SerializeField] private float edgeMovementSpeed = 10;
+    [SerializeField] private float edgeTreshold = 10;
+    private float screenWidth;
+    private float screenHeigth;
+
 
     [Header ("Rotation")]
     [SerializeField] private Transform focusPoint;
@@ -28,15 +34,23 @@ public class CameraController : MonoBehaviour
     private float smoothTime = .1f;
     private Vector3 movementVelocity = Vector3.zero;
     private Vector3 zoomVelocity = Vector3.zero;
+    private Vector3 edgeMovementVelocity = Vector3.zero;    
     private Vector3 mouseMovementVelocity = Vector3.zero;
     private Vector3 lastMousePosition;
     
+    void Start()
+    {
+        screenWidth = Screen.width;
+        screenHeigth = Screen.height;
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         HandleRotation();
         HandleZoom();
+        HandleEdgeMovement();
         HandleMouseMovement();
         HandleMovement();
 
@@ -91,7 +105,7 @@ public class CameraController : MonoBehaviour
         float  vInput = Input.GetAxis("Vertical");
         float hInput = Input.GetAxis("Horizontal");
 
-        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up). normalized;
+        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
 
         if(vInput > 0)
             targetPosition += flatForward * movementSpeed * Time.deltaTime;
@@ -116,8 +130,8 @@ public class CameraController : MonoBehaviour
         if(Input.GetMouseButton(2))
         {
             Vector3 positionDifference = Input.mousePosition - lastMousePosition;
-            Vector3 moveRight = transform.right * positionDifference.x * mousMovementSpeed * Time.deltaTime;
-            Vector3 moveForward = transform.forward * positionDifference.y * mousMovementSpeed * Time.deltaTime;
+            Vector3 moveRight = transform.right * (-positionDifference.x) * mousMovementSpeed * Time.deltaTime;
+            Vector3 moveForward = transform.forward * (-positionDifference.y) * mousMovementSpeed * Time.deltaTime;
 
             moveRight.y = 0;
             moveForward.y = 0;
@@ -128,5 +142,26 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref mouseMovementVelocity, smoothTime);
             lastMousePosition = Input.mousePosition;
         }
+    }
+
+    private void HandleEdgeMovement()
+    {
+        Vector3 targetPosition = transform.position;
+        Vector3 mousePosition = Input.mousePosition;
+        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+
+        if(mousePosition.x > screenWidth - edgeTreshold)
+            targetPosition += transform.right * edgeMovementSpeed * Time.deltaTime;
+        
+        if(mousePosition.x < edgeTreshold)
+            targetPosition -= transform.right *edgeMovementSpeed * Time.deltaTime;
+
+        if(mousePosition.y > screenHeigth - edgeTreshold)
+            targetPosition += flatForward * edgeMovementSpeed * Time.deltaTime;
+        
+        if(mousePosition.y < edgeTreshold)
+            targetPosition -= flatForward * edgeMovementSpeed * Time.deltaTime;
+
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref edgeMovementVelocity, smoothTime);
     }
 }

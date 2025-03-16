@@ -20078,11 +20078,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 120
+  mousMovementSpeed: 5
+  edgeMovementSpeed: 50
+  edgeTreshold: 10
   focusPoint: {fileID: 537532728}
   maxfocusPointDistance: 15
   roationSpeed: 120
   minPitch: 5
   maxPitch: 85
+  zoomSpeed: 10
+  minZoom: 3
+  maxZoom: 15
 --- !u!1 &330698187
 GameObject:
   m_ObjectHideFlags: 0
