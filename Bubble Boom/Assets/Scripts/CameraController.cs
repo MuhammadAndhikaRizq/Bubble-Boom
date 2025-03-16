@@ -5,7 +5,9 @@ using UnityEngine.XR;
 
 public class CameraController : MonoBehaviour
 {
+    [Header ("Movement")]
     [SerializeField] private float movementSpeed = 120;
+    [SerializeField] private float mousMovementSpeed = 5;
 
 
     [Header ("Rotation")]
@@ -17,6 +19,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minPitch = 5f;
     [SerializeField] private float maxPitch = 85f;
 
+
     [Header ("Zoom")]
     [SerializeField] private float zoomSpeed = 10f;
     [SerializeField] private float minZoom = 3;
@@ -25,6 +28,8 @@ public class CameraController : MonoBehaviour
     private float smoothTime = .1f;
     private Vector3 movementVelocity = Vector3.zero;
     private Vector3 zoomVelocity = Vector3.zero;
+    private Vector3 mouseMovementVelocity = Vector3.zero;
+    private Vector3 lastMousePosition;
     
 
     // Update is called once per frame
@@ -32,6 +37,7 @@ public class CameraController : MonoBehaviour
     {
         HandleRotation();
         HandleZoom();
+        HandleMouseMovement();
         HandleMovement();
 
         focusPoint.position = transform.position + (transform.forward * GetFocusDistance());
@@ -98,5 +104,29 @@ public class CameraController : MonoBehaviour
             targetPosition -= transform.right * movementSpeed * Time.deltaTime;
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref movementVelocity,smoothTime);
+    }
+
+    private void HandleMouseMovement()
+    {
+        if(Input.GetMouseButtonDown(2))
+        {
+            lastMousePosition = Input.mousePosition;
+        }
+
+        if(Input.GetMouseButton(2))
+        {
+            Vector3 positionDifference = Input.mousePosition - lastMousePosition;
+            Vector3 moveRight = transform.right * positionDifference.x * mousMovementSpeed * Time.deltaTime;
+            Vector3 moveForward = transform.forward * positionDifference.y * mousMovementSpeed * Time.deltaTime;
+
+            moveRight.y = 0;
+            moveForward.y = 0;
+
+            Vector3 movement = moveRight + moveForward;
+            Vector3 targetPosition = transform.position + movement;
+
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref mouseMovementVelocity, smoothTime);
+            lastMousePosition = Input.mousePosition;
+        }
     }
 }
