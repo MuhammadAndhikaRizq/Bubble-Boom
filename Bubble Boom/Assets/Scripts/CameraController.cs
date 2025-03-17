@@ -108,6 +108,9 @@ public class CameraController : MonoBehaviour
         float  vInput = Input.GetAxis("Vertical");
         float hInput = Input.GetAxis("Horizontal");
 
+        if(vInput == 0 && hInput == 0)
+            return;
+
         Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
 
         if(vInput > 0)
@@ -147,6 +150,10 @@ public class CameraController : MonoBehaviour
             Vector3 movement = moveRight + moveForward;
             Vector3 targetPosition = transform.position + movement;
 
+            if(Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+            {
+                targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+            }
 
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref mouseMovementVelocity, smoothTime);
             lastMousePosition = Input.mousePosition;
@@ -170,6 +177,11 @@ public class CameraController : MonoBehaviour
         
         if(mousePosition.y < edgeTreshold)
             targetPosition -= flatForward * edgeMovementSpeed * Time.deltaTime;
+
+        if(Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+        {
+            targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+        }
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref edgeMovementVelocity, smoothTime);
     }

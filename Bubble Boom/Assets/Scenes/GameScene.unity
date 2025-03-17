@@ -20014,8 +20014,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08317641, y: 0.8668757, z: -0.15452018, w: 0.46661726}
-  m_LocalPosition: {x: -5.6642456, y: 5.062748, z: 20.833988}
+  m_LocalRotation: {x: 0.108611085, y: 0.8635767, z: -0.21078064, w: 0.4449837}
+  m_LocalPosition: {x: -4.760071, y: 7.262989, z: 21.118114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20078,7 +20078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelCenterPoint: {x: 10, y: 10, z: 10}
-  maxDistanceFromCenter: 10
+  maxDistanceFromCenter: 30
   movementSpeed: 120
   mousMovementSpeed: 5
   edgeMovementSpeed: 50
