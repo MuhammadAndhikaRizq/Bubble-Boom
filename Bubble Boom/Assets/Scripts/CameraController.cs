@@ -5,6 +5,7 @@ using UnityEngine.XR;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private bool canControll;
     [SerializeField] private Vector3 levelCenterPoint;
     [SerializeField] private float maxDistanceFromCenter;
 
@@ -51,6 +52,9 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(canControll == false)
+            return;
+
         HandleRotation();
         HandleZoom();
         HandleEdgeMovement();
@@ -60,6 +64,9 @@ public class CameraController : MonoBehaviour
         focusPoint.position = transform.position + (transform.forward * GetFocusDistance());
        
     }
+
+    public void EnableCameraControlls(bool enable) => canControll = enable;
+    public void AdjustPitchValue(float value) => pitch = value;
 
     private float GetFocusDistance()
     {
