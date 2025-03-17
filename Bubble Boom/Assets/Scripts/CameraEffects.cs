@@ -11,6 +11,12 @@ public class CameraEffects : MonoBehaviour
     [SerializeField] private Vector3 inGamePosition;
     [SerializeField] private Quaternion inGameRotation;
 
+    [Header ("Camera Shake")]
+    [Range(0.01f, 5f)]
+    [SerializeField] private float shakeMagnitude;
+    [Range(0.1f, 3f)]
+    [SerializeField] private float shakeDuration;
+
     private void Awake()
     {
         camController = GetComponent<CameraController>();
@@ -28,6 +34,14 @@ public class CameraEffects : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Alpha2))
             SwitchToGameView();
+
+        if(Input.GetKeyDown(KeyCode.V))
+            ScreenShake(shakeDuration, shakeMagnitude);
+    }
+
+    public void ScreenShake(float newshakeDuration, float newshakeMagnitude)
+    {
+        StartCoroutine(ScreenShakeVFX(newshakeDuration, newshakeMagnitude));
     }
 
     public void SwitchToMenuView()
@@ -64,5 +78,24 @@ public class CameraEffects : MonoBehaviour
         transform.position = targetPosition;
         transform.rotation = targetRotation;
         camController.EnableCameraControlls(true);
+    }
+
+    private IEnumerator ScreenShakeVFX(float duration, float magnitude)
+    {
+        Vector3 originalPosition = camController.transform.position;
+        float elapsed = 0;
+
+        while(elapsed < duration)
+        {
+            float x = Random.Range(-1, 1) * magnitude;
+            float y = Random.Range(-1, 1) * magnitude;
+
+            camController.transform.position = originalPosition + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        camController.transform.position = originalPosition;
     }
 }
