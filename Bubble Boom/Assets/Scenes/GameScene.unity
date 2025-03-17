@@ -19940,6 +19940,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -20014,8 +20015,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.108611085, y: 0.8635767, z: -0.21078064, w: 0.4449837}
-  m_LocalPosition: {x: -4.760071, y: 7.262989, z: 21.118114}
+  m_LocalRotation: {x: -0.34164798, y: 0.52775156, z: -0.24421377, w: -0.7383188}
+  m_LocalPosition: {x: 23.19471, y: 12.86647, z: 4.0997276}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20091,6 +20092,22 @@ MonoBehaviour:
   zoomSpeed: 10
   minZoom: 3
   maxZoom: 15
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e54356bed10ce4db578ed73cdfcffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inMenuPosition: {x: 23, y: 13, z: 4}
+  inMenuRotation: {x: 0.34406018, y: -0.52629554, z: 0.24541575, w: 0.73783916}
+  inGamePosition: {x: -4.8, y: 7.3, z: 21.1}
+  inGameRotation: {x: 0.107793085, y: 0.8625027, z: -0.2070686, w: 0.44899043}
 --- !u!1 &330698187
 GameObject:
   m_ObjectHideFlags: 0
@@ -130340,7 +130357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dde523f2c362864db08e18048650d3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 6708151898500363699, guid: 4b347194c08435e44b65a30c01c63fcb,
+  towerPrefab: {fileID: 3628782844375807769, guid: 2b143cbb490604a4eb186535a1d23a93,
     type: 3}
   isPlaceable: 1
 --- !u!1 &2130873464
