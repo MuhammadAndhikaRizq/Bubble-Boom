@@ -5,6 +5,9 @@ using UnityEngine.XR;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private Vector3 levelCenterPoint;
+    [SerializeField] private float maxDistanceFromCenter;
+
     [Header ("Movement")]
     [SerializeField] private float movementSpeed = 120;
     [SerializeField] private float mousMovementSpeed = 5;
@@ -105,7 +108,7 @@ public class CameraController : MonoBehaviour
         float  vInput = Input.GetAxis("Vertical");
         float hInput = Input.GetAxis("Horizontal");
 
-        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
 
         if(vInput > 0)
             targetPosition += flatForward * movementSpeed * Time.deltaTime;
@@ -116,6 +119,11 @@ public class CameraController : MonoBehaviour
             targetPosition += transform.right * movementSpeed * Time.deltaTime;
         if(hInput < 0)
             targetPosition -= transform.right * movementSpeed * Time.deltaTime;
+
+        if(Vector3.Distance(levelCenterPoint, targetPosition) > maxDistanceFromCenter)
+        {
+            targetPosition = levelCenterPoint + (targetPosition - levelCenterPoint).normalized * maxDistanceFromCenter;
+        }
 
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref movementVelocity,smoothTime);
     }
@@ -138,6 +146,7 @@ public class CameraController : MonoBehaviour
 
             Vector3 movement = moveRight + moveForward;
             Vector3 targetPosition = transform.position + movement;
+
 
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref mouseMovementVelocity, smoothTime);
             lastMousePosition = Input.mousePosition;

@@ -20077,6 +20077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e196e0378c75a48ae160d26ed40646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelCenterPoint: {x: 10, y: 10, z: 10}
+  maxDistanceFromCenter: 10
   movementSpeed: 120
   mousMovementSpeed: 5
   edgeMovementSpeed: 50
