@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class UI : MonoBehaviour
@@ -13,5 +14,13 @@ public class UI : MonoBehaviour
             ui.SetActive(false);
         }
         uiEnabled.SetActive(true);
+   }
+
+   public void QuitButton()
+   {
+        if(EditorApplication.isPlaying)
+            EditorApplication.isPlaying = false;
+        else
+            Application.Quit();
    }
 }
