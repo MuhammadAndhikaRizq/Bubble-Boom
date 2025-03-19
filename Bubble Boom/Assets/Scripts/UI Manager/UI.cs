@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class UI : MonoBehaviour
@@ -34,9 +33,9 @@ public class UI : MonoBehaviour
 
    public void QuitButton()
    {
-        if(EditorApplication.isPlaying)
-            EditorApplication.isPlaying = false;
-        else
+        // if(EditorApplication.isPlaying)
+        //     EditorApplication.isPlaying = false;
+        // else
             Application.Quit();
    }
 }
