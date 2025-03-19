@@ -5,16 +5,10 @@ using UnityEngine;
 public class TileAnimator : MonoBehaviour
 {
     [SerializeField] private float yMovementDuration = .1f;
+    
 
-    private float yTestOffset = .25f;
-    public Transform testObject;
-
-    [ContextMenu("Move Tile")]
-    public void TestMovementObject()
-    {
-        Vector3 targetPosition = testObject.position + new Vector3(0, yTestOffset);
-        MoveTile(testObject, targetPosition);
-    }
+    [Header ("Build Slow Movement")]
+    [SerializeField] private float buildSlotYoffset = .25f;
 
     public void MoveTile(Transform objectMove, Vector3 targetPosition)
     {
@@ -36,4 +30,6 @@ public class TileAnimator : MonoBehaviour
 
         objectToMove.position = targetPosition;
     }
+
+    public float GetBuildOffset() => buildSlotYoffset;
 }
