@@ -5,7 +5,6 @@ using UnityEngine;
 public class TileAnimator : MonoBehaviour
 {
     [SerializeField] private float yMovementDuration = .1f;
-    
 
     [Header ("Build Slow Movement")]
     [SerializeField] private float buildSlotYoffset = .25f;
@@ -15,7 +14,7 @@ public class TileAnimator : MonoBehaviour
         StartCoroutine(MoveTileCo(objectMove, targetPosition));
     }
 
-    private IEnumerator MoveTileCo(Transform objectToMove, Vector3 targetPosition)
+    public IEnumerator MoveTileCo(Transform objectToMove, Vector3 targetPosition)
     {
         float time = 0;
         Vector3 startPosition = objectToMove.position;
@@ -32,4 +31,5 @@ public class TileAnimator : MonoBehaviour
     }
 
     public float GetBuildOffset() => buildSlotYoffset;
+    public float GetTravelDuration() => yMovementDuration;
 }
