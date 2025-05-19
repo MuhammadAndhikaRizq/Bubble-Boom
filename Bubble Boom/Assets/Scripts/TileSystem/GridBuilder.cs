@@ -50,4 +50,20 @@ public class GridBuilder : MonoBehaviour
 
         createdTiles.Add(newTile);
     }
+
+    public List<BuildSlot> GetAvailableBuildSlots()
+    {
+        List<BuildSlot> buildSlots = new List<BuildSlot>();
+
+        foreach (GameObject tile in createdTiles)
+        {
+            BuildSlot slot = tile.GetComponent<BuildSlot>();
+            if (slot != null && slot.enabled && slot.gameObject.activeInHierarchy)
+            {
+                buildSlots.Add(slot);
+            }
+        }
+
+        return buildSlots;
+    }
 }

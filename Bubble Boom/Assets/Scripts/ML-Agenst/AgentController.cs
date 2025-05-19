@@ -10,10 +10,13 @@ using UnityEditor.Build.Content;
 public class AgentController : Agent
 {
     public EnemyPortal portal;
+    [SerializeField] private GridBuilder gridBuilder;
+    [SerializeField] private List<GameObject> towerPrefabsList;
 
     public override void OnEpisodeBegin()
     {
         portal.ClearAllEnemies();
+        GameManager.Instance.AutoBuildTowersForTraining(gridBuilder, towerPrefabsList, 3);
     }
 
     public override void CollectObservations(VectorSensor sensor)

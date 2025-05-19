@@ -35,4 +35,23 @@ public class GameManager : MonoBehaviour
     {
         currentWave++;
     }
+
+    public void AutoBuildTowersForTraining(GridBuilder grid, List<GameObject> towerPrefabs, int maxTower = 3)
+    {
+        List<BuildSlot> slots = grid.GetAvailableBuildSlots();
+
+        for (int i = 0; i < maxTower && slots.Count > 0; i++)
+        {
+            int randIndex = Random.Range(0, slots.Count);
+            BuildSlot selectedSlot = slots[randIndex];
+
+            // Instantiate tower
+            GameObject towerPrefab = towerPrefabs[Random.Range(0, towerPrefabs.Count)];
+            GameObject newTower = GameObject.Instantiate(towerPrefab, selectedSlot.transform.position, Quaternion.identity);
+            
+            newTower.transform.SetParent(selectedSlot.transform); // optional
+            slots.RemoveAt(randIndex); // remove so no duplicate
+        }
+    }
+    
 }

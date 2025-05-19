@@ -34,4 +34,9 @@ public class Tower_WaterGun : Tower
             visuals.PlayAttackVisual(gunPoint.position, hitInfo.point, enemyTarget);
         }
     }
+
+    public override float GetAttackStrength()
+    {
+        return damage / attackCooldown;
+    }
 }
