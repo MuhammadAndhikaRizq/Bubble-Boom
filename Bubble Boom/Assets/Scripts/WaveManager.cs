@@ -10,10 +10,12 @@ public class WaveDetails
     public EnemyPortal[] newPortals;
     public int basicEnemy;
     public int fastEnemy;
+
 }
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private GridBuilder currentGrid;
+    [SerializeField] private AgentController agent; 
     public bool waveCompleted;
 
     public float timerBeetwenWave = 5;
@@ -56,6 +58,17 @@ public class WaveManager : MonoBehaviour
             CheckForNewLayout();
 
             waveCompleted = true;
+            if (waveCompleted == false && AllEnemiesDead())
+            {
+                CheckForNewLayout();
+
+                waveCompleted = true;
+                waveTimer = timerBeetwenWave;
+
+                // Reward agent setelah 1 wave selesai
+                float playerHP = GameManager.Instance.TotalTowerPower(); // atau kamu bisa akses PlayerBase.GetHP()
+                agent.RewardEpisode(playerHP);  // Ini manggil fungsi di AgentController
+            }
             waveTimer = timerBeetwenWave;
         }
     }

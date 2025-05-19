@@ -10,9 +10,11 @@ public class EnemyPortal : MonoBehaviour
     [Space]
 
     [SerializeField] private List<Waypoint> waypoints;
+    [SerializeField] private List<GameObject> enemyVariants;
     
     private List<GameObject> enemiesToCreate = new List<GameObject>();
     private List<GameObject> activateEnemies = new List<GameObject>();
+    
 
     private void Awake()
     {
@@ -66,6 +68,31 @@ public class EnemyPortal : MonoBehaviour
             activateEnemies.Remove(enemyToRemove);
     }
     public List<GameObject> GetActiveEnemies() => activateEnemies;
+
+    public void PrepareSpawn(int count, int enemyType, float delay)
+    {
+        spawnCooldown = delay;
+        enemiesToCreate.Clear();
+
+        for (int i = 0; i < count; i++)
+        {
+            GameObject selectedEnemy = enemyVariants[enemyType]; // kamu siapkan array enemyVariants[]
+            enemiesToCreate.Add(selectedEnemy);
+        }
+
+        spawnTimer = 0; // mulai segera
+    }
+    
+    public void ClearAllEnemies()
+    {
+        foreach (GameObject e in activateEnemies)
+        {
+            Destroy(e);
+        }
+
+        activateEnemies.Clear();
+        enemiesToCreate.Clear();
+    }
 
     [ContextMenu("Collect all waypoint")]
     private void CollectWaypoints()

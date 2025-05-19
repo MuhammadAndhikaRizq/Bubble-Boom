@@ -68,6 +68,11 @@ public class Tower : MonoBehaviour
         
     }
 
+    public virtual float GetAttackStrength()
+    {
+        return 1f / attackCooldown;;
+    }
+
     protected virtual bool CanAttack()
     {
         if(Time.time > lastTimeAttacked + attackCooldown)
