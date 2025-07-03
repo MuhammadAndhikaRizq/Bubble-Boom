@@ -5,108 +5,137 @@ using UnityEngine;
 
 public class EnemyPortal : MonoBehaviour
 {
-    [SerializeField] private float spawnCooldown;
+    [SerializeField] private float spawnCooldownBase = 1f; // Cooldown dasar
+    private float currentSpawnCooldown; // Cooldown yang di-set oleh agen
+    [SerializeField] private float spawnRange = 2.4f;
     private float spawnTimer;
     [Space]
 
     [SerializeField] private List<Waypoint> waypoints;
-    [SerializeField] private List<GameObject> enemyVariants;
-    
-    private List<GameObject> enemiesToCreate = new List<GameObject>();
-    private List<GameObject> activateEnemies = new List<GameObject>();
-    
+    [SerializeField] public List<GameObject> enemyVariants; // Jadikan public agar bisa dicek dari Agent
+
+    private List<GameObject> enemiesToSpawnQueue = new List<GameObject>(); // Ganti nama agar lebih jelas
+    private List<GameObject> activeEnemies = new List<GameObject>(); // Ganti nama agar lebih jelas
 
     private void Awake()
     {
         CollectWaypoints();
+        currentSpawnCooldown = spawnCooldownBase; // Set default cooldown
     }
+
     private void Update()
     {
-        if (CanMakeEnemy())
+        if (CanSpawnEnemy()) // Ganti nama method
         {
-            CreateEnemy();
+            SpawnNextEnemyInQueue(); // Ganti nama method
         }
     }
 
-    private bool CanMakeEnemy()
+    private bool CanSpawnEnemy()
     {
         spawnTimer -= Time.deltaTime;
-
-        if(spawnTimer <= 0 && enemiesToCreate.Count > 0)
+        if (spawnTimer <= 0 && enemiesToSpawnQueue.Count > 0)
         {
-            spawnTimer = spawnCooldown;
+            // spawnTimer = currentSpawnCooldown; // Cooldown di-set saat PrepareSpawn
             return true;
         }
-
         return false;
     }
 
-    private void CreateEnemy()
+    private void SpawnNextEnemyInQueue()
     {
-        GameObject randomEnemy = GetRandomEnemy();
-        GameObject newEnemy = Instantiate (randomEnemy, transform.position, Quaternion.identity);
+        if (enemiesToSpawnQueue.Count == 0) return;
 
-        Enemy enemyScript = newEnemy.GetComponent<Enemy>();
-        enemyScript.SetUpEnemy(waypoints, this);
+        GameObject enemyPrefabToSpawn = enemiesToSpawnQueue[0]; // Ambil yang pertama di antrian
+        enemiesToSpawnQueue.RemoveAt(0); // Hapus dari antrian
 
-        activateEnemies.Add(newEnemy);
+        GameObject newEnemyGO = Instantiate(enemyPrefabToSpawn, transform.position, Quaternion.identity);
+        Enemy enemyScript = newEnemyGO.GetComponent<Enemy>();
+        if (enemyScript != null)
+        {
+            enemyScript.SetUpEnemy(waypoints, this);
+        }
+        activeEnemies.Add(newEnemyGO);
+
+        spawnTimer = currentSpawnCooldown; // Reset timer untuk musuh berikutnya *setelah* spawn
     }
 
-    private GameObject GetRandomEnemy()
-    {
-        int randomIndex = Random.Range(0, enemiesToCreate.Count);
-        GameObject chooseEnemy = enemiesToCreate[randomIndex];
-        enemiesToCreate.Remove(chooseEnemy);
+    // Method ini tidak lagi diperlukan jika PrepareSpawn mengisi queue dengan tipe yang sudah ditentukan
+    // private GameObject GetRandomEnemy() { ... }
 
-        return chooseEnemy;
-    }
+    // Method ini tidak lagi diperlukan jika agen langsung memanggil PrepareSpawn
+    // public void AddEnemy(GameObject enemyToAdd) => enemiesToSpawnQueue.Add(enemyToAdd);
 
-    public void AddEnemy(GameObject enemyToAdd) => enemiesToCreate.Add(enemyToAdd);
     public void RemoveActivateEnemy(GameObject enemyToRemove)
     {
-        if(activateEnemies.Contains(enemyToRemove))
-            activateEnemies.Remove(enemyToRemove);
+        if (activeEnemies.Contains(enemyToRemove))
+            activeEnemies.Remove(enemyToRemove);
     }
-    public List<GameObject> GetActiveEnemies() => activateEnemies;
 
-    public void PrepareSpawn(int count, int enemyType, float delay)
+    public List<GameObject> GetActiveEnemies() => activeEnemies;
+    public bool AreAllEnemiesInQueueSpawned() => enemiesToSpawnQueue.Count == 0;
+
+
+    public bool IsValidEnemyTypeIndex(int index)
     {
-        spawnCooldown = delay;
-        enemiesToCreate.Clear();
+        return index >= 0 && index < enemyVariants.Count;
+    }
+
+    public void PrepareSpawn(int count, int enemyTypeIndex, float delayBetweenSpawns)
+    {
+        currentSpawnCooldown = Mathf.Max(0.1f, delayBetweenSpawns); // Pastikan delay tidak terlalu kecil
+        enemiesToSpawnQueue.Clear();
+
+        if (!IsValidEnemyTypeIndex(enemyTypeIndex))
+        {
+            Debug.LogWarning($"EnemyPortal: Menerima enemyTypeIndex tidak valid ({enemyTypeIndex}). Menggunakan tipe 0 (default).");
+            enemyTypeIndex = 0; // Default ke tipe pertama jika tidak valid
+        }
+        
+        if (enemyVariants.Count == 0) {
+            Debug.LogError("EnemyPortal: enemyVariants kosong! Tidak bisa spawn musuh.");
+            return;
+        }
+
+        GameObject selectedEnemyPrefab = enemyVariants[enemyTypeIndex];
 
         for (int i = 0; i < count; i++)
         {
-            GameObject selectedEnemy = enemyVariants[enemyType]; // kamu siapkan array enemyVariants[]
-            enemiesToCreate.Add(selectedEnemy);
+            enemiesToSpawnQueue.Add(selectedEnemyPrefab);
         }
 
-        spawnTimer = 0; // mulai segera
+        spawnTimer = 0; // Mulai spawn segera untuk musuh pertama di antrian
     }
-    
+
     public void ClearAllEnemies()
     {
-        foreach (GameObject e in activateEnemies)
+        foreach (GameObject e in activeEnemies)
         {
-            Destroy(e);
+            if (e != null) Destroy(e);
         }
-
-        activateEnemies.Clear();
-        enemiesToCreate.Clear();
+        activeEnemies.Clear();
+        enemiesToSpawnQueue.Clear();
     }
 
     [ContextMenu("Collect all waypoint")]
     private void CollectWaypoints()
     {
         waypoints = new List<Waypoint>();
-
-        foreach(Transform child in transform)
+        // Gunakan transform.GetChild(i) untuk iterasi yang lebih aman jika ada child lain
+        for (int i = 0; i < transform.childCount; i++)
         {
+            Transform child = transform.GetChild(i);
             Waypoint waypoint = child.GetComponent<Waypoint>();
-
-            if(waypoint != null)
+            if (waypoint != null)
             {
                 waypoints.Add(waypoint);
             }
         }
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spawnRange);
     }
 }

@@ -1,0 +1,73 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1748338352",
+        "python_version": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Kaka Dhika\\AppData\\Local\\Programs\\Python\\Python39\\Scripts\\mlagents-learn D:\\Github\\Bubble-Boom\\Bubble Boom\\Assets\\Scripts\\ML-Agenst\\dda_config.yaml --run-id=BubbleBoomTrain2",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.7.0+cpu",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1748338426"
+    },
+    "total": 73.7315569,
+    "count": 1,
+    "self": 0.007074500000001649,
+    "children": {
+        "run_training.setup": {
+            "total": 0.08508369999999976,
+            "count": 1,
+            "self": 0.08508369999999976
+        },
+        "TrainerController.start_learning": {
+            "total": 73.6393987,
+            "count": 1,
+            "self": 0.0011437000000142916,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 13.4210359,
+                    "count": 1,
+                    "self": 13.4210359
+                },
+                "TrainerController.advance": {
+                    "total": 59.8882627,
+                    "count": 1,
+                    "self": 8.000000000407681e-05,
+                    "children": {
+                        "env_step": {
+                            "total": 59.888182699999994,
+                            "count": 1,
+                            "self": 59.88817519999999,
+                            "children": {
+                                "SubprocessEnvManager._take_step": {
+                                    "total": 7.5000000006042455e-06,
+                                    "count": 1,
+                                    "self": 7.5000000006042455e-06
+                                }
+                            }
+                        }
+                    }
+                },
+                "trainer_threads": {
+                    "total": 1.099999991538425e-06,
+                    "count": 1,
+                    "self": 1.099999991538425e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 0.32895529999998985,
+                    "count": 1,
+                    "self": 7.579999999052234e-05,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.3288794999999993,
+                            "count": 1,
+                            "self": 0.3288794999999993
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

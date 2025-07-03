@@ -23,9 +23,21 @@ public class Tower : MonoBehaviour
     private float targetCheckInterval = .1f;
     private float lastTimeChecked;
 
-    protected virtual void Awake()
+    protected virtual void Start() // Ganti Awake ke Start atau pastikan GameManager.Instance sudah ada
     {
-        EnableRotation(true);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RegisterTower(this);
+        }
+        EnableRotation(true); // Dari kode Anda sebelumnya, dipindah dari Awake
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.UnregisterTower(this);
+        }
     }
 
     // Update is called once per frame

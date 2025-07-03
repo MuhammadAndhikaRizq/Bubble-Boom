@@ -9,7 +9,7 @@ public class Tower_WaterGun : Tower
     [SerializeField] private int damage;
     [SerializeField] private Transform gunPoint;
 
-    protected override void Awake()
+    protected override void Start()
     {
         visuals = GetComponent<WaterGun_Viisuals>();   
     }

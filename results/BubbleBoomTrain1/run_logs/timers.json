@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1748338237",
+        "python_version": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Kaka Dhika\\AppData\\Local\\Programs\\Python\\Python39\\Scripts\\mlagents-learn D:\\Github\\Bubble-Boom\\Bubble Boom\\Assets\\Scripts\\ML-Agenst\\dda_config.yaml --run-id=BubbleBoomTrain1",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.7.0+cpu",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1748338314"
+    },
+    "total": 77.1839772,
+    "count": 1,
+    "self": 0.01467740000001072,
+    "children": {
+        "run_training.setup": {
+            "total": 0.1595185999999993,
+            "count": 1,
+            "self": 0.1595185999999993
+        },
+        "TrainerController.start_learning": {
+            "total": 77.00978119999999,
+            "count": 1,
+            "self": 0.0029440999999934547,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 77.0067385,
+                    "count": 1,
+                    "self": 77.0067385
+                },
+                "trainer_threads": {
+                    "total": 1.2999999938756446e-06,
+                    "count": 1,
+                    "self": 1.2999999938756446e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 9.730000000729433e-05,
+                    "count": 1,
+                    "self": 9.730000000729433e-05
+                }
+            }
+        }
+    }
+}

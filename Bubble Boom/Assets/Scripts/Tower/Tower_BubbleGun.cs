@@ -11,7 +11,7 @@ public class Tower_BubbleGun : Tower
     [SerializeField] private Transform gunPoint;
     [SerializeField] private float projectileSpeed = 10f;
 
-    protected override void Awake()
+    protected override void Start()
     {
         
     }
